@@ -58,6 +58,8 @@ def output_params_test(test_output, params):
     if ((size*size) != length):
         return "Incorrect program output. Program algoritm error. \
         Size by coords not complies input size"
+
+    return "Test successful"
         
 
 def input_params_test(output_file, program_path, program_name):
