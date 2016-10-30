@@ -51,6 +51,10 @@ def output_params_test(test_output, params):
     if (doors != keys):
         return "Incorrect program output. Doors count != keys count"
 
+    if (doors != doors_count):
+        return "Incorrect program output. \
+        Doors count not complies input doors count"
+    
     if ((size*size) != length):
         return "Incorrect program output. Program algoritm error. \
         Size by coords not complies input size"
@@ -76,6 +80,8 @@ def input_params_test(output_file, program_path, program_name):
             output_string += output_params_test(test_output, params) + "\n"
         except IOError:
             output_string += "TE02\n"
+
+        output_file.write(output_string)
         
 
 def main_function(argv):
@@ -106,6 +112,7 @@ def main_function(argv):
         return
     
     input_params_test(output_file, program_path, program_name)
+    output_file.close()
 
        
 def get_test_params():
