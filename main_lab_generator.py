@@ -29,6 +29,11 @@ def main_function(argv):
             return
     
     input_list = input_file.readlines()
+    if(len(input_list) != 3):
+        output_file.write("IOE02")
+        output_file.close()
+        return
+    
     for string in input_list:
         if((len(string) > 5) and (string[0:5] == "size=")):
             input_size = string[5:len(string)]
@@ -40,23 +45,40 @@ def main_function(argv):
             output_file.write("IOE02")
             output_file.close()
             return
-        
     try:
-        int(input_size)
-        int(input_in_a_row)
-        int(input_doors_count)
+        input_size = int(input_size)
+        input_in_a_row = int(input_in_a_row)
+        input_doors_count = int(input_doors_count)
     except ValueError:
-        output_file.write("IOE02");
-        output_file.close();
+        output_file.write("IOE02")
+        output_file.close()
         return
-
-    generator = LabGenerator(int(input_size), int(input_in_a_row),
-        int(input_doors_count))
+    
+    
+    if(input_size <= 0):
+        output_file.write("IOE02")
+        output_file.close()
+        return
+    
+    if(input_in_a_row <= 0):
+        output_file.write("IOE02")
+        output_file.close()
+        return
+    
+    if(input_doors_count < 0):
+        output_file.write("IOE02")
+        output_file.close()
+        return
+    
+    generator = LabGenerator(input_size, input_in_a_row,
+        input_doors_count)
     generator.generate()
     
     if(generator.get_lab_string()):
-        output_file.write(generator.get_lab_string());
-        output_file.close();
+        output_file.write(generator.get_lab_string()\
+                          + str(generator.get_doors()) + '\n' \
+                          + str(generator.get_keys()))
+        output_file.close()
     else:
         output_file.write("IOE03")
         output_file.close()
